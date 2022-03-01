@@ -20,6 +20,13 @@
 		09DAAAE727CEA62300911127 /* CitiesSearchViewModelType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09DAAAE627CEA62300911127 /* CitiesSearchViewModelType.swift */; };
 		09DAAAE927CEA6A000911127 /* CityViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09DAAAE827CEA6A000911127 /* CityViewModel.swift */; };
 		09E82F1D27CEAF44008F5C8E /* UITableViewCell+Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09E82F1C27CEAF44008F5C8E /* UITableViewCell+Common.swift */; };
+		09E82F1F27CEB871008F5C8E /* CitiesSearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09E82F1E27CEB871008F5C8E /* CitiesSearchViewModel.swift */; };
+		09E82F2127CEB8D4008F5C8E /* CitiesSearchNavigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09E82F2027CEB8D4008F5C8E /* CitiesSearchNavigator.swift */; };
+		09E82F2427CEBA1C008F5C8E /* CitiesUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09E82F2327CEBA1C008F5C8E /* CitiesUseCase.swift */; };
+		09E82F2727CEBA8C008F5C8E /* City.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09E82F2627CEBA8C008F5C8E /* City.swift */; };
+		09E82F2927CEBAEA008F5C8E /* Coordinate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09E82F2827CEBAEA008F5C8E /* Coordinate.swift */; };
+		09E82F2B27CEBE89008F5C8E /* Schedular.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09E82F2A27CEBE89008F5C8E /* Schedular.swift */; };
+		09E82F2E27CEBF15008F5C8E /* Publisher+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09E82F2D27CEBF15008F5C8E /* Publisher+Utils.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,6 +64,13 @@
 		09DAAAE627CEA62300911127 /* CitiesSearchViewModelType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CitiesSearchViewModelType.swift; sourceTree = "<group>"; };
 		09DAAAE827CEA6A000911127 /* CityViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityViewModel.swift; sourceTree = "<group>"; };
 		09E82F1C27CEAF44008F5C8E /* UITableViewCell+Common.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableViewCell+Common.swift"; sourceTree = "<group>"; };
+		09E82F1E27CEB871008F5C8E /* CitiesSearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CitiesSearchViewModel.swift; sourceTree = "<group>"; };
+		09E82F2027CEB8D4008F5C8E /* CitiesSearchNavigator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CitiesSearchNavigator.swift; sourceTree = "<group>"; };
+		09E82F2327CEBA1C008F5C8E /* CitiesUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CitiesUseCase.swift; sourceTree = "<group>"; };
+		09E82F2627CEBA8C008F5C8E /* City.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = City.swift; sourceTree = "<group>"; };
+		09E82F2827CEBAEA008F5C8E /* Coordinate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinate.swift; sourceTree = "<group>"; };
+		09E82F2A27CEBE89008F5C8E /* Schedular.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Schedular.swift; sourceTree = "<group>"; };
+		09E82F2D27CEBF15008F5C8E /* Publisher+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Publisher+Utils.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -148,6 +162,8 @@
 			children = (
 				09E82F1927CEADF7008F5C8E /* Extensions */,
 				098AE4E327CD719D00C991A2 /* Screens */,
+				09E82F2227CEB9FE008F5C8E /* UseCases */,
+				09E82F2C27CEBEFC008F5C8E /* Utils */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -164,11 +180,13 @@
 		098AE4E427CD71A900C991A2 /* Search */ = {
 			isa = PBXGroup;
 			children = (
+				09E82F2027CEB8D4008F5C8E /* CitiesSearchNavigator.swift */,
 				09DAAAE227CEA55A00911127 /* CitiesSearchViewController.swift */,
 				09DAAAE327CEA55A00911127 /* CitiesSearchViewController.xib */,
 				09DAAAE627CEA62300911127 /* CitiesSearchViewModelType.swift */,
 				09DAAAE827CEA6A000911127 /* CityViewModel.swift */,
 				09E82F1C27CEAF44008F5C8E /* UITableViewCell+Common.swift */,
+				09E82F1E27CEB871008F5C8E /* CitiesSearchViewModel.swift */,
 			);
 			path = Search;
 			sourceTree = "<group>";
@@ -185,6 +203,33 @@
 			children = (
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		09E82F2227CEB9FE008F5C8E /* UseCases */ = {
+			isa = PBXGroup;
+			children = (
+				09E82F2527CEBA80008F5C8E /* Models */,
+				09E82F2327CEBA1C008F5C8E /* CitiesUseCase.swift */,
+				09E82F2A27CEBE89008F5C8E /* Schedular.swift */,
+			);
+			path = UseCases;
+			sourceTree = "<group>";
+		};
+		09E82F2527CEBA80008F5C8E /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				09E82F2627CEBA8C008F5C8E /* City.swift */,
+				09E82F2827CEBAEA008F5C8E /* Coordinate.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		09E82F2C27CEBEFC008F5C8E /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				09E82F2D27CEBF15008F5C8E /* Publisher+Utils.swift */,
+			);
+			path = Utils;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -320,11 +365,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				09E82F2427CEBA1C008F5C8E /* CitiesUseCase.swift in Sources */,
+				09E82F2B27CEBE89008F5C8E /* Schedular.swift in Sources */,
 				09DAAAE427CEA55A00911127 /* CitiesSearchViewController.swift in Sources */,
+				09E82F2727CEBA8C008F5C8E /* City.swift in Sources */,
 				09DAAAE727CEA62300911127 /* CitiesSearchViewModelType.swift in Sources */,
 				09E82F1D27CEAF44008F5C8E /* UITableViewCell+Common.swift in Sources */,
+				09E82F1F27CEB871008F5C8E /* CitiesSearchViewModel.swift in Sources */,
+				09E82F2127CEB8D4008F5C8E /* CitiesSearchNavigator.swift in Sources */,
 				098AE4B027CD566A00C991A2 /* AppDelegate.swift in Sources */,
 				09DAAAE927CEA6A000911127 /* CityViewModel.swift in Sources */,
+				09E82F2E27CEBF15008F5C8E /* Publisher+Utils.swift in Sources */,
+				09E82F2927CEBAEA008F5C8E /* Coordinate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

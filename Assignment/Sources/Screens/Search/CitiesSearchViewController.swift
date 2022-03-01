@@ -18,7 +18,7 @@ class CitiesSearchViewController: UIViewController {
     ///Privates
     private var cancellables: [AnyCancellable] = []
     private let viewModel: CitiesSearchViewModelType
-    private let didSelect = PassthroughSubject<Int, Never>()
+    private let didSelect = PassthroughSubject<CityViewModel, Never>()
     private let didSearch = PassthroughSubject<String, Never>()
     private let didAppear = PassthroughSubject<Void, Never>()
     private var cellId = "cellId"
@@ -45,6 +45,10 @@ class CitiesSearchViewController: UIViewController {
         setupUI()
         bindViewModel(viewModel)
     }
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        didAppear.send(())
+    }
     //MARK: - Setup View
     private func setupUI() {
         definesPresentationContext = true
@@ -63,9 +67,20 @@ class CitiesSearchViewController: UIViewController {
         let output = viewModel.transform(input: input)
         
         output.sink { [weak self] state in
-            //TODO: - Update state
+            self?.updateState(state)
         }
         .store(in: &cancellables)
+    }
+    private func updateState(_ state: CitiesSearchState) {
+        loadingView.isHidden = true
+        switch state {
+            case .loading:
+                loadingView.isHidden = false
+            case .success(let cities):
+                update(with: cities)
+            default:
+                break
+        }
     }
 }
 //MARK: - SearchBar Delegate
@@ -75,7 +90,7 @@ extension CitiesSearchViewController: UISearchBarDelegate {
 //MARK: - TableView
 fileprivate extension CitiesSearchViewController {
     enum Section: CaseIterable {
-        case movies
+        case cities
     }
     func setupDataSource() -> UITableViewDiffableDataSource<Section, CityViewModel> {
         return UITableViewDiffableDataSource(tableView: tableView) { tableView, indexPath, cityViewModel in
@@ -90,6 +105,14 @@ fileprivate extension CitiesSearchViewController {
             }
             cell.bind(to: cityViewModel)
             return cell
+        }
+    }
+    func update(with cities: [CityViewModel]) {
+        DispatchQueue.main.async { [unowned self] in
+            var snapshot = NSDiffableDataSourceSnapshot<Section, CityViewModel>()
+            snapshot.appendSections(Section.allCases)
+            snapshot.appendItems(cities, toSection: .cities)
+            self.dataSource.apply(snapshot)
         }
     }
 }

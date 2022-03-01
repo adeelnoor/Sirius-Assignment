@@ -28,15 +28,6 @@ struct CityViewModel {
         self.coord = coordinate
     }
 }
-struct Coordinate {
-    let lon: Double
-    let lat: Double
-    
-    init(lon: Double, lat: Double) {
-        self.lon = lon
-        self.lat = lat
-    }
-}
 extension CityViewModel: Hashable {
     static func == (lhs: CityViewModel, rhs: CityViewModel) -> Bool {
         return lhs.id == rhs.id
