@@ -31,11 +31,7 @@ final class CitiesSearchViewModel: CitiesSearchViewModelType {
             .search
             .throttle(for: .milliseconds(3000), scheduler: Scheduler.mainScheduler, latest: true)
             .removeDuplicates()
-        let cities = searchInput
-            .filter { !$0.isEmpty }
-            .flatMapLatest { query in
-                self.useCase.searchCities(with: query)
-            }
+        let _cities = self.useCase.loadCitiesData()
             .map { result -> CitiesSearchState in
                 switch result {
                     case .success(let cities):
@@ -46,12 +42,30 @@ final class CitiesSearchViewModel: CitiesSearchViewModelType {
                         print("Error searching Cities",error.localizedDescription)
                         return .empty
                 }
+                
             }
             .eraseToAnyPublisher()
+//        let cities = searchInput
+//            .filter { !$0.isEmpty }
+//            .flatMapLatest { query in
+//                self.useCase.searchCities(with: query)
+//            }
+//            .map { result -> CitiesSearchState in
+//                switch result {
+//                    case .success(let cities):
+//                        return .success(self.viewModels(cities))
+//                    case .success(let cities) where cities.isEmpty:
+//                        return .empty
+//                    case .failure(let error):
+//                        print("Error searching Cities",error.localizedDescription)
+//                        return .empty
+//                }
+//            }
+//            .eraseToAnyPublisher()
         
         let loadingState: CitiesSearchViewModelOutput = .just(.loading)
         return Publishers
-            .Merge(loadingState, cities)
+            .Merge(loadingState, _cities)
             .removeDuplicates()
             .eraseToAnyPublisher()
     }
@@ -61,7 +75,7 @@ private extension CitiesSearchViewModel {
     func viewModels(_ cities: [City]) -> [CityViewModel] {
         return cities.map {
             return CityViewModel(country: $0.country,
-                                 name: $0.name,
+                                 name: $0.city,
                                  id: $0.id,
                                  coordinate: $0.coord)
         }

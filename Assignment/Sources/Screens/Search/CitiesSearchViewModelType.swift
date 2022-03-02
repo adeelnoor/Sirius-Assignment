@@ -22,6 +22,11 @@ enum CitiesSearchState {
     case success([CityViewModel])
     case empty //no results or empty results
 }
+enum ErrorType: Error {
+    case parsingError
+    case fileError
+    case commonError
+}
 extension CitiesSearchState: Equatable {
     static func == (lhs: CitiesSearchState, rhs: CitiesSearchState) -> Bool {
         switch (lhs, rhs) {

@@ -27,6 +27,16 @@
 		09E82F2927CEBAEA008F5C8E /* Coordinate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09E82F2827CEBAEA008F5C8E /* Coordinate.swift */; };
 		09E82F2B27CEBE89008F5C8E /* Schedular.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09E82F2A27CEBE89008F5C8E /* Schedular.swift */; };
 		09E82F2E27CEBF15008F5C8E /* Publisher+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09E82F2D27CEBF15008F5C8E /* Publisher+Utils.swift */; };
+		09E82F3227CF5E5B008F5C8E /* FlowCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09E82F3127CF5E5B008F5C8E /* FlowCoordinator.swift */; };
+		09E82F3427CF5EFB008F5C8E /* ApplicationFlowCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09E82F3327CF5EFB008F5C8E /* ApplicationFlowCoordinator.swift */; };
+		09E82F3627CF5F2A008F5C8E /* CitiesSearchFlowCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09E82F3527CF5F2A008F5C8E /* CitiesSearchFlowCoordinator.swift */; };
+		09E82F3827CF6038008F5C8E /* FlowCoordinatorDependencyProviders.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09E82F3727CF6038008F5C8E /* FlowCoordinatorDependencyProviders.swift */; };
+		09E82F3A27CF66B8008F5C8E /* ApplicationComponentsProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09E82F3927CF66B8008F5C8E /* ApplicationComponentsProvider.swift */; };
+		09E82F3C27CFEB58008F5C8E /* FileServiceType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09E82F3B27CFEB58008F5C8E /* FileServiceType.swift */; };
+		09E82F3F27CFEDB8008F5C8E /* FileServiceProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09E82F3E27CFEDB8008F5C8E /* FileServiceProvider.swift */; };
+		09E82F4127CFEE08008F5C8E /* FileService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09E82F4027CFEE08008F5C8E /* FileService.swift */; };
+		09E82F4327CFFA84008F5C8E /* AccessibilityIdentifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09E82F4227CFFA84008F5C8E /* AccessibilityIdentifiers.swift */; };
+		09E82F4527CFFF11008F5C8E /* UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09E82F4427CFFF11008F5C8E /* UIViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -71,6 +81,16 @@
 		09E82F2827CEBAEA008F5C8E /* Coordinate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinate.swift; sourceTree = "<group>"; };
 		09E82F2A27CEBE89008F5C8E /* Schedular.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Schedular.swift; sourceTree = "<group>"; };
 		09E82F2D27CEBF15008F5C8E /* Publisher+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Publisher+Utils.swift"; sourceTree = "<group>"; };
+		09E82F3127CF5E5B008F5C8E /* FlowCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowCoordinator.swift; sourceTree = "<group>"; };
+		09E82F3327CF5EFB008F5C8E /* ApplicationFlowCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationFlowCoordinator.swift; sourceTree = "<group>"; };
+		09E82F3527CF5F2A008F5C8E /* CitiesSearchFlowCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CitiesSearchFlowCoordinator.swift; sourceTree = "<group>"; };
+		09E82F3727CF6038008F5C8E /* FlowCoordinatorDependencyProviders.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowCoordinatorDependencyProviders.swift; sourceTree = "<group>"; };
+		09E82F3927CF66B8008F5C8E /* ApplicationComponentsProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationComponentsProvider.swift; sourceTree = "<group>"; };
+		09E82F3B27CFEB58008F5C8E /* FileServiceType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileServiceType.swift; sourceTree = "<group>"; };
+		09E82F3E27CFEDB8008F5C8E /* FileServiceProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileServiceProvider.swift; sourceTree = "<group>"; };
+		09E82F4027CFEE08008F5C8E /* FileService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileService.swift; sourceTree = "<group>"; };
+		09E82F4227CFFA84008F5C8E /* AccessibilityIdentifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessibilityIdentifiers.swift; sourceTree = "<group>"; };
+		09E82F4427CFFF11008F5C8E /* UIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -160,10 +180,12 @@
 		098AE4E027CD6E0D00C991A2 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				09E82F3027CF5E35008F5C8E /* Coordinator */,
 				09E82F1927CEADF7008F5C8E /* Extensions */,
 				098AE4E327CD719D00C991A2 /* Screens */,
 				09E82F2227CEB9FE008F5C8E /* UseCases */,
 				09E82F2C27CEBEFC008F5C8E /* Utils */,
+				09E82F3D27CFED92008F5C8E /* FileServices */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -201,6 +223,7 @@
 		09E82F1927CEADF7008F5C8E /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				09E82F4427CFFF11008F5C8E /* UIViewController.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -228,8 +251,31 @@
 			isa = PBXGroup;
 			children = (
 				09E82F2D27CEBF15008F5C8E /* Publisher+Utils.swift */,
+				09E82F4227CFFA84008F5C8E /* AccessibilityIdentifiers.swift */,
 			);
 			path = Utils;
+			sourceTree = "<group>";
+		};
+		09E82F3027CF5E35008F5C8E /* Coordinator */ = {
+			isa = PBXGroup;
+			children = (
+				09E82F3127CF5E5B008F5C8E /* FlowCoordinator.swift */,
+				09E82F3327CF5EFB008F5C8E /* ApplicationFlowCoordinator.swift */,
+				09E82F3527CF5F2A008F5C8E /* CitiesSearchFlowCoordinator.swift */,
+				09E82F3727CF6038008F5C8E /* FlowCoordinatorDependencyProviders.swift */,
+				09E82F3927CF66B8008F5C8E /* ApplicationComponentsProvider.swift */,
+			);
+			path = Coordinator;
+			sourceTree = "<group>";
+		};
+		09E82F3D27CFED92008F5C8E /* FileServices */ = {
+			isa = PBXGroup;
+			children = (
+				09E82F3B27CFEB58008F5C8E /* FileServiceType.swift */,
+				09E82F3E27CFEDB8008F5C8E /* FileServiceProvider.swift */,
+				09E82F4027CFEE08008F5C8E /* FileService.swift */,
+			);
+			path = FileServices;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -365,16 +411,26 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				09E82F3627CF5F2A008F5C8E /* CitiesSearchFlowCoordinator.swift in Sources */,
+				09E82F3A27CF66B8008F5C8E /* ApplicationComponentsProvider.swift in Sources */,
 				09E82F2427CEBA1C008F5C8E /* CitiesUseCase.swift in Sources */,
 				09E82F2B27CEBE89008F5C8E /* Schedular.swift in Sources */,
+				09E82F3227CF5E5B008F5C8E /* FlowCoordinator.swift in Sources */,
 				09DAAAE427CEA55A00911127 /* CitiesSearchViewController.swift in Sources */,
 				09E82F2727CEBA8C008F5C8E /* City.swift in Sources */,
 				09DAAAE727CEA62300911127 /* CitiesSearchViewModelType.swift in Sources */,
+				09E82F3F27CFEDB8008F5C8E /* FileServiceProvider.swift in Sources */,
+				09E82F3427CF5EFB008F5C8E /* ApplicationFlowCoordinator.swift in Sources */,
 				09E82F1D27CEAF44008F5C8E /* UITableViewCell+Common.swift in Sources */,
 				09E82F1F27CEB871008F5C8E /* CitiesSearchViewModel.swift in Sources */,
+				09E82F3C27CFEB58008F5C8E /* FileServiceType.swift in Sources */,
+				09E82F4127CFEE08008F5C8E /* FileService.swift in Sources */,
+				09E82F4527CFFF11008F5C8E /* UIViewController.swift in Sources */,
 				09E82F2127CEB8D4008F5C8E /* CitiesSearchNavigator.swift in Sources */,
 				098AE4B027CD566A00C991A2 /* AppDelegate.swift in Sources */,
+				09E82F3827CF6038008F5C8E /* FlowCoordinatorDependencyProviders.swift in Sources */,
 				09DAAAE927CEA6A000911127 /* CityViewModel.swift in Sources */,
+				09E82F4327CFFA84008F5C8E /* AccessibilityIdentifiers.swift in Sources */,
 				09E82F2E27CEBF15008F5C8E /* Publisher+Utils.swift in Sources */,
 				09E82F2927CEBAEA008F5C8E /* Coordinate.swift in Sources */,
 			);

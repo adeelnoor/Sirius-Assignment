@@ -7,7 +7,7 @@
 
 import UIKit
 
-struct Coordinate {
+struct Coordinate: Codable {
     let lon: Double
     let lat: Double
 }
