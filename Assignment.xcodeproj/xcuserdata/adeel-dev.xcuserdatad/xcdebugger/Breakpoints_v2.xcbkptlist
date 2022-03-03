@@ -7,16 +7,16 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "5C7C014D-4C85-4CDA-B351-3FADEABA4C47"
+            uuid = "837479D0-2798-49BD-9527-FA1E26C9D571"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Assignment/Sources/Screens/Search/CitiesSearchViewModel.swift"
+            filePath = "Assignment/Sources/Screens/Search/CitiesSearchViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "38"
-            endingLineNumber = "38"
-            landmarkName = "transform(input:)"
+            startingLineNumber = "89"
+            endingLineNumber = "89"
+            landmarkName = "updateState(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

@@ -24,7 +24,10 @@ class CitiesSearchViewController: UIViewController {
     private var cellId = "cellId"
     private lazy var searchController: UISearchController = {
         let searchController = UISearchController(searchResultsController: nil)
+        searchController.searchResultsUpdater = self
+        searchController.searchBar.sizeToFit()
         searchController.obscuresBackgroundDuringPresentation = false
+        searchController.searchBar.autoresizingMask = .flexibleWidth
         searchController.searchBar.tintColor = .label
         searchController.searchBar.delegate = self
         searchController.searchBar.searchTextField.placeholder = "SEARCH HERE"
@@ -39,6 +42,13 @@ class CitiesSearchViewController: UIViewController {
     required init?(coder: NSCoder) {
         fatalError("Not Supported!")
     }
+    deinit {
+        print("TBVC Dealloc")
+          if let superView = searchController.view.superview
+          {
+            superView.removeFromSuperview()
+          }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,12 +61,15 @@ class CitiesSearchViewController: UIViewController {
     }
     //MARK: - Setup View
     private func setupUI() {
-        definesPresentationContext = true
+//        definesPresentationContext = true
         title = "Cities"
-        tableView.tableFooterView = UIView()
+//        tableView.tableFooterView = UIView()
         tableView.dataSource = dataSource
-        navigationItem.searchController = self.searchController
-        searchController.isActive = true
+//        navigationItem.searchController = self.searchController
+//        searchController.isActive = true
+        
+        navigationController?.navigationBar.isTranslucent = true
+        tableView.tableHeaderView = searchController.searchBar
     }
     private func bindViewModel(_ viewModel: CitiesSearchViewModelType) {
         cancellables.forEach { $0.cancel() }
@@ -84,8 +97,18 @@ class CitiesSearchViewController: UIViewController {
     }
 }
 //MARK: - SearchBar Delegate
-extension CitiesSearchViewController: UISearchBarDelegate {
-    //TODO: - Add searchBar Delegates
+extension CitiesSearchViewController: UISearchBarDelegate, UISearchResultsUpdating {
+    func updateSearchResults(for searchController: UISearchController) {
+        if let searchText = searchController.searchBar.text, !searchText.isEmpty {
+            didSearch.send(searchText)
+        }
+    }
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        didSearch.send(searchText)
+    }
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        didSearch.send("")
+    }
 }
 //MARK: - TableView
 fileprivate extension CitiesSearchViewController {
@@ -100,8 +123,8 @@ fileprivate extension CitiesSearchViewController {
                 cell.textLabel?.textAlignment = .left
                 cell.textLabel?.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
                 cell.textLabel?.textColor = .black
-                cell.selectionStyle = .none
-                cell.backgroundColor = #colorLiteral(red: 0.8980392157, green: 0.8980392157, blue: 0.8980392157, alpha: 1)
+                cell.selectionStyle = .default
+                cell.backgroundColor = .white
             }
             cell.bind(to: cityViewModel)
             return cell

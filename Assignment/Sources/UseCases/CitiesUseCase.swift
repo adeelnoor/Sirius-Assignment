@@ -16,13 +16,11 @@ final class CitiesUseCase: CitiesUseCaseType {
         self.fileService = fileService
     }
     
-    func searchCities(with name: String) -> AnyPublisher<Result<[City], Error>, Never> {
-        return fileService.load()
-            .map { .success($0) }
-            .catch { error -> AnyPublisher<Result<[City], Error>, Never> in .just(.failure(error))}
-            .subscribe(on: Scheduler.backgroundWorkScheduler)
-            .receive(on: Scheduler.mainScheduler)
-            .eraseToAnyPublisher()
+    func searchCities(from cities: [City], with name: String) -> AnyPublisher<Result<[City], Error>, Never> {
+        let cities = cities.filter {
+            $0.city.hasPrefix(name)
+        }
+        return .just(.success(cities))
     }
     
     func loadCitiesData() -> AnyPublisher<Result<[City], Error>, Never> {
@@ -37,6 +35,6 @@ final class CitiesUseCase: CitiesUseCaseType {
 }
 protocol CitiesUseCaseType {
     /// Runs cities search with a query string
-    func searchCities(with name: String) -> AnyPublisher<Result<[City], Error>, Never>
+    func searchCities(from cities: [City], with name: String) -> AnyPublisher<Result<[City], Error>, Never>
     func loadCitiesData() -> AnyPublisher<Result<[City], Error>, Never>
 }

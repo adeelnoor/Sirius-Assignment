@@ -13,7 +13,7 @@ struct City: Codable {
     let id: Int
     let coord: Coordinate
     
-    //Added `CodingKeys` to decode "_id" key from json to right value
+    //Added `CodingKeys` to decode "_id" key from json
     enum CodingKeys: String, CodingKey {
         case id = "_id"
         case country
