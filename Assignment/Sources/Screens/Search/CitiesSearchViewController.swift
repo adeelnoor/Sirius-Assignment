@@ -139,3 +139,14 @@ fileprivate extension CitiesSearchViewController {
         }
     }
 }
+//MARK: - UItableView Delegates
+extension CitiesSearchViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let snapshot = dataSource.snapshot()
+        didSelect.send(snapshot.itemIdentifiers[indexPath.row])
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        searchController.searchBar.resignFirstResponder()
+    }
+}
