@@ -11,15 +11,14 @@ import MapKit
 class CityDetailViewController: UIViewController {
     ///outlets
     @IBOutlet weak var mapView: MKMapView!
-    
     ///Privates
     private let viewModel: CityViewModel
     
+    ///init
     init(viewModel: CityViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
-    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -33,13 +32,13 @@ class CityDetailViewController: UIViewController {
     }
     private func configureDetails() {
         let coordinates = viewModel.coord
-        self.title = viewModel.title //set navigationBar title
+        self.title = viewModel.title //set navigationBar title as country title
         let location = CLLocationCoordinate2D(latitude: coordinates.lat, longitude: coordinates.lon)
         mapView.setCenter(location, animated: true)
         
-        let annotation1 = MKPointAnnotation()
-        annotation1.coordinate = location
-        annotation1.title = viewModel.name
-        mapView.addAnnotation(annotation1)
+        let annotation = MKPointAnnotation()
+        annotation.coordinate = location
+        annotation.title = viewModel.name
+        mapView.addAnnotation(annotation)
     }
 }

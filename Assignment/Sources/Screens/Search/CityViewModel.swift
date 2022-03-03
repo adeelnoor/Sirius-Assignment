@@ -28,6 +28,7 @@ struct CityViewModel {
         self.coord = coordinate
     }
 }
+///UITableViewDiffableDataSource Requires DataSouce to conform to hashable
 extension CityViewModel: Hashable {
     static func == (lhs: CityViewModel, rhs: CityViewModel) -> Bool {
         return lhs.id == rhs.id
@@ -36,7 +37,7 @@ extension CityViewModel: Hashable {
         hasher.combine(id)
     }
 }
-//MARK: - City detail properties
+//MARK: - City properties
 extension CityViewModel: CityTitleProtocol, CityCoordinatesProtocol {
     var title: String {
         return "\(name), \(country)"

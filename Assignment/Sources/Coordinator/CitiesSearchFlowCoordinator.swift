@@ -7,6 +7,7 @@
 
 import UIKit
 
+/// The `CitiesSearchFlowCoordinator` takes control over the flows on the cities search screen
 class CitiesSearchFlowCoordinator: FlowCoordinator {
     fileprivate let window: UIWindow
     fileprivate var searchNavigationController: UINavigationController?
@@ -18,15 +19,15 @@ class CitiesSearchFlowCoordinator: FlowCoordinator {
     }
 
     func start() {
-        let searchNavigationController = dependencyProvider.moviesSearchNavigationController(navigator: self)
+        let searchNavigationController = dependencyProvider.citiesSearchNavigationController(navigator: self)
         window.rootViewController = searchNavigationController
         self.searchNavigationController = searchNavigationController
     }
 }
 extension CitiesSearchFlowCoordinator: CitiesSearchNavigator {
     
-    func showLocation(forCity viewModel: CityViewModel) {
-        let controller = self.dependencyProvider.cityDetailsController(viewModel)
+    func showLocation(for viewModel: CityViewModel) {
+        let controller = self.dependencyProvider.cityDetailsController(cityViewModel: viewModel)
         searchNavigationController?.show(controller, sender: nil)
     }
 }

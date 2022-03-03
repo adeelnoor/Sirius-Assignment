@@ -6,8 +6,8 @@
 //
 
 import UIKit
-
+///`CitiesSearchNavigator` will be responsible for navigating
 protocol CitiesSearchNavigator: AnyObject {
     /// Show location on map i.e. detail screen
-    func showLocation(forCity viewModel: CityViewModel)
+    func showLocation(for viewModel: CityViewModel)
 }

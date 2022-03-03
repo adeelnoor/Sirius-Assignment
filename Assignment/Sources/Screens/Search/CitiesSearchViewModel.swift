@@ -15,10 +15,8 @@ final class CitiesSearchViewModel: CitiesSearchViewModelType {
     private weak var navigator: CitiesSearchNavigator?
     private let useCase: CitiesUseCaseType
     
-    
     ///Data source
     private var cities = [City]()
-    private var filteredCities = [City]()
     
     init(useCase: CitiesUseCaseType, navigator: CitiesSearchNavigator) {
         self.useCase = useCase
@@ -28,25 +26,18 @@ final class CitiesSearchViewModel: CitiesSearchViewModelType {
         cancellables.forEach { $0.cancel() }
         cancellables.removeAll()
         
+        //inital loading state
+        let loadingState: CitiesSearchViewModelOutput = .just(.loading)
+        ///Select  row i.e City
         input
             .select
             .sink(receiveValue: { viewModel in
-                self.navigator?.showLocation(forCity: viewModel)
+                self.navigator?.showLocation(for: viewModel)
             })
             .store(in: &cancellables)
         
-        let searchInput = input
-            .search
-            .throttle(for: .milliseconds(3000), scheduler: Scheduler.mainScheduler, latest: true)
-            .removeDuplicates()
-        input.search.sink { text in
-            self.filteredCities = self.cities.filter {
-                return $0.city.lowercased().hasPrefix(text.lowercased())
-            }
-            //Reload with filtered array
-        }
-        .store(in: &cancellables)
-        let _cities = self.useCase.loadCitiesData()
+        ///Load all the cities
+        let allCities = self.useCase.loadCitiesData()
             .map { result -> CitiesSearchState in
                 switch result {
                     case .success(let cities):
@@ -54,61 +45,37 @@ final class CitiesSearchViewModel: CitiesSearchViewModelType {
                         return .success(self.viewModels(cities))
                     case .success(let cities) where cities.isEmpty:
                         return .empty
-                    case .failure(let error):
-                        print("Error searching Cities",error.localizedDescription)
-                        return .empty
+                    case .failure(let err):
+                        return .error(err)
                 }
             }
             .eraseToAnyPublisher()
-        searchInput
-            .filter { !$0.isEmpty }
+        
+        ///Load filtered cities
+        let filteredCities = input
+            .search.filter { _ in true }
             .flatMapLatest { text in
                 self.useCase.searchCities(from: self.cities, with: text)
-            }
+        }
             .map { result -> CitiesSearchState in
                 switch result {
                     case .success(let cities):
                         return .success(self.viewModels(cities))
+                    case .success(let cities) where cities.isEmpty:
+                        return .empty
                     case .failure(let err):
-                        print(err)
+                        return .error(err)
                 }
-                return .loading
             }
-//            .receive(on: Scheduler.mainScheduler)
-//            .eraseToAnyPublisher()
-            .sink { _ in }
-            .store(in: &cancellables)
-        
-//        let cities = searchInput
-//            .filter { !$0.isEmpty }
-//            .flatMapLatest { query in
-//                self.useCase.searchCities(with: query)
-//            }
-//            .map { result -> CitiesSearchState in
-//                switch result {
-//                    case .success(let cities):
-//                        return .success(self.viewModels(cities))
-//                    case .success(let cities) where cities.isEmpty:
-//                        return .empty
-//                    case .failure(let error):
-//                        print("Error searching Cities",error.localizedDescription)
-//                        return .empty
-//                }
-//            }
-//            .eraseToAnyPublisher()
-        
-        let loadingState: CitiesSearchViewModelOutput = .just(.loading)
-//        return Publishers
-//            .Merge(loadingState, _cities)
-//            .removeDuplicates()
-//            .eraseToAnyPublisher()
-        
-        return Publishers.MergeMany(loadingState, _cities, .just(.success(viewModels(filteredCities))))
+            .eraseToAnyPublisher()
+        ///Return 3 Publishers, state, all the cities and filtered cities
+        return Publishers
+            .Merge3(loadingState, allCities, filteredCities)
             .removeDuplicates()
             .eraseToAnyPublisher()
     }
 }
-//MARK: - Map - cities
+//MARK: - Mapping
 private extension CitiesSearchViewModel {
     func viewModels(_ cities: [City]) -> [CityViewModel] {
         return cities.map {

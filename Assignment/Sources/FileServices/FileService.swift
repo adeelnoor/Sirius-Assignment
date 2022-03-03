@@ -25,4 +25,19 @@ class FileService: FileServiceType {
             return .fail(ErrorType.parsingError)
         }
     }
+    
+    @discardableResult
+    func search(from cities: [City], name: String) -> AnyPublisher<[City], Error> {
+        let cities = cities.filter {
+//            if let _ = $0.city.range(of: name) {
+//                return true
+//            }
+//            return false
+            $0.city.hasPrefix(name)
+        }
+//        let _asd = cities.sortedCites().prefix(20).map {
+//            return $0
+//        }
+        return .just(cities.sortedCites())
+    }
 }

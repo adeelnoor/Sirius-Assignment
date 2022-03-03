@@ -12,8 +12,8 @@ protocol ApplicationFlowCoordinatorDependencyProvider: CitiesSearchFlowCoordinat
 
 protocol CitiesSearchFlowCoordinatorDependencyProvider {
     ///Creates UIViewController to search for a city
-    func moviesSearchNavigationController(navigator: CitiesSearchNavigator) -> UINavigationController
+    func citiesSearchNavigationController(navigator: CitiesSearchNavigator) -> UINavigationController
 
     ///Creates UIViewController to show the details of the city with specified viewModel
-    func cityDetailsController(_ cityViewModel: CityViewModel) -> UIViewController
+    func cityDetailsController(cityViewModel: CityViewModel) -> UIViewController
 }

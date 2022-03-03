@@ -7,6 +7,7 @@
 
 import UIKit
 
+/// The `ApplicationComponentsProvider` takes responsibity of creating application components and establishing dependencies between them.
 final class ApplicationComponentsProvider {
     
     private let fileProvider: FileServiceProvider
@@ -17,7 +18,7 @@ final class ApplicationComponentsProvider {
     }
 }
 extension ApplicationComponentsProvider: ApplicationFlowCoordinatorDependencyProvider {
-    func moviesSearchNavigationController(navigator: CitiesSearchNavigator) -> UINavigationController {
+    func citiesSearchNavigationController(navigator: CitiesSearchNavigator) -> UINavigationController {
         let viewModel = CitiesSearchViewModel(useCase: useCase, navigator: navigator)
         let citiesSearchViewController = CitiesSearchViewController(viewModel: viewModel)
         let citiesSearchNavigationController = UINavigationController(rootViewController: citiesSearchViewController)
@@ -25,7 +26,7 @@ extension ApplicationComponentsProvider: ApplicationFlowCoordinatorDependencyPro
         return citiesSearchNavigationController
     }
     
-    func cityDetailsController(_ cityViewModel: CityViewModel) -> UIViewController {
+    func cityDetailsController(cityViewModel: CityViewModel) -> UIViewController {
         return CityDetailViewController(viewModel: cityViewModel)
     }
 }

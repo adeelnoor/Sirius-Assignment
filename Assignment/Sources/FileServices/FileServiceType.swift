@@ -12,4 +12,7 @@ protocol FileServiceType: AnyObject {
     
     @discardableResult
     func load() -> AnyPublisher<[City], Error>
+    
+    @discardableResult
+    func search(from cities: [City], name: String) -> AnyPublisher<[City], Error>
 }

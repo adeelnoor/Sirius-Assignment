@@ -20,7 +20,7 @@ class CitiesSearchViewController: UIViewController {
     private let viewModel: CitiesSearchViewModelType
     private let didSelect = PassthroughSubject<CityViewModel, Never>()
     private let didSearch = PassthroughSubject<String, Never>()
-    private let didAppear = PassthroughSubject<Void, Never>()
+    private let cities = PassthroughSubject<[City], Never>()
     private var cellId = "cellId"
     private lazy var searchController: UISearchController = {
         let searchController = UISearchController(searchResultsController: nil)
@@ -30,7 +30,7 @@ class CitiesSearchViewController: UIViewController {
         searchController.searchBar.autoresizingMask = .flexibleWidth
         searchController.searchBar.tintColor = .label
         searchController.searchBar.delegate = self
-        searchController.searchBar.searchTextField.placeholder = "SEARCH HERE"
+        searchController.searchBar.searchTextField.placeholder = "Search here..."
         return searchController
     }()
     private lazy var dataSource = setupDataSource()
@@ -42,13 +42,6 @@ class CitiesSearchViewController: UIViewController {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    deinit {
-        print("TBVC Dealloc")
-          if let superView = searchController.view.superview
-          {
-            superView.removeFromSuperview()
-          }
-    }
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.delegate = self
@@ -57,17 +50,12 @@ class CitiesSearchViewController: UIViewController {
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        didAppear.send(())
     }
     //MARK: - Setup View
     private func setupUI() {
-//        definesPresentationContext = true
         title = "Cities"
-//        tableView.tableFooterView = UIView()
+        //Setup tableView datasource
         tableView.dataSource = dataSource
-//        navigationItem.searchController = self.searchController
-//        searchController.isActive = true
-        
         navigationController?.navigationBar.isTranslucent = true
         tableView.tableHeaderView = searchController.searchBar
     }
@@ -75,8 +63,7 @@ class CitiesSearchViewController: UIViewController {
     private func bindViewModel(_ viewModel: CitiesSearchViewModelType) {
         cancellables.forEach { $0.cancel() }
         cancellables.removeAll()
-        let input = CitiesSearchViewModelInput(appear: didAppear.eraseToAnyPublisher(),
-                                               search: didSearch.eraseToAnyPublisher(),
+        let input = CitiesSearchViewModelInput(search: didSearch.eraseToAnyPublisher(),
                                                select: didSelect.eraseToAnyPublisher())
         let output = viewModel.transform(input: input)
         
@@ -92,7 +79,9 @@ class CitiesSearchViewController: UIViewController {
                 loadingView.isHidden = false
             case .success(let cities):
                 update(with: cities)
-            default:
+            case .error(let error):
+                alert(title: "Error", message: error.localizedDescription)
+            case .empty:
                 break
         }
     }
@@ -102,10 +91,9 @@ extension CitiesSearchViewController: UISearchBarDelegate, UISearchResultsUpdati
     func updateSearchResults(for searchController: UISearchController) {
         if let searchText = searchController.searchBar.text, !searchText.isEmpty {
             didSearch.send(searchText)
+        } else {
+            didSearch.send("")
         }
-    }
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        didSearch.send(searchText)
     }
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         didSearch.send("")
@@ -132,11 +120,13 @@ fileprivate extension CitiesSearchViewController {
         }
     }
     func update(with cities: [CityViewModel]) {
-        DispatchQueue.main.async { [unowned self] in
+        DispatchQueue.global(qos: .default).async { [unowned self] in
             var snapshot = NSDiffableDataSourceSnapshot<Section, CityViewModel>()
             snapshot.appendSections(Section.allCases)
             snapshot.appendItems(cities, toSection: .cities)
-            self.dataSource.apply(snapshot)
+            DispatchQueue.main.async {
+                self.dataSource.apply(snapshot, animatingDifferences: true)
+            }
         }
     }
 }

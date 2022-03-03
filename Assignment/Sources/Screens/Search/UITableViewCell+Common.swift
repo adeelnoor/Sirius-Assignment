@@ -8,6 +8,7 @@
 import UIKit
 
 extension UITableViewCell {
+    ///Binding cell with ViewModel
     func bind(to viewModel: CityViewModel) {
         textLabel?.text = viewModel.title
         detailTextLabel?.text = viewModel.coordinates

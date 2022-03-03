@@ -14,8 +14,8 @@ extension Publisher {
             .switchToLatest()
     }
 }
+//Publisher helper methods
 extension Publisher {
-    
     static func empty() -> AnyPublisher<Output, Failure> {
         return Empty()
             .eraseToAnyPublisher()
@@ -28,7 +28,6 @@ extension Publisher {
             }
             .eraseToAnyPublisher()
     }
-    
     static func fail(_ error: Failure) -> AnyPublisher<Output, Failure> {
         return Fail(error: error)
             .eraseToAnyPublisher()

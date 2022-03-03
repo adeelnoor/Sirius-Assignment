@@ -9,9 +9,7 @@ import Foundation
 import Combine
 
 struct CitiesSearchViewModelInput {
-    /// called when a screen becomes visible
-    let appear: AnyPublisher<Void, Never>
-    // triggered when the search query is updated
+    /// triggered when the search query is updated
     let search: AnyPublisher<String, Never>
     /// called when the user selected an item from the list
     let select: AnyPublisher<CityViewModel, Never>
@@ -21,6 +19,7 @@ enum CitiesSearchState {
     case loading
     case success([CityViewModel])
     case empty //no results or empty results
+    case error(Error)
 }
 enum ErrorType: Error {
     case parsingError
