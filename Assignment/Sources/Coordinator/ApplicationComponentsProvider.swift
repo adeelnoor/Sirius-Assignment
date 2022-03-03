@@ -26,7 +26,6 @@ extension ApplicationComponentsProvider: ApplicationFlowCoordinatorDependencyPro
     }
     
     func cityDetailsController(_ cityViewModel: CityViewModel) -> UIViewController {
-        //TODO: - Return detail ViewController
-        return UIViewController()
+        return CityDetailViewController(viewModel: cityViewModel)
     }
 }

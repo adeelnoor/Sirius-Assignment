@@ -40,7 +40,7 @@ class CitiesSearchViewController: UIViewController {
         super.init(nibName: nil, bundle: nil)
     }
     required init?(coder: NSCoder) {
-        fatalError("Not Supported!")
+        fatalError("init(coder:) has not been implemented")
     }
     deinit {
         print("TBVC Dealloc")
@@ -49,9 +49,9 @@ class CitiesSearchViewController: UIViewController {
             superView.removeFromSuperview()
           }
     }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
+        tableView.delegate = self
         setupUI()
         bindViewModel(viewModel)
     }
@@ -71,6 +71,7 @@ class CitiesSearchViewController: UIViewController {
         navigationController?.navigationBar.isTranslucent = true
         tableView.tableHeaderView = searchController.searchBar
     }
+    //MARK: - Bindings
     private func bindViewModel(_ viewModel: CitiesSearchViewModelType) {
         cancellables.forEach { $0.cancel() }
         cancellables.removeAll()
