@@ -16,15 +16,12 @@ class FileService: FileServiceType {
             return .fail(ErrorType.fileError)
         }
         do {
+            ///Load all the cities from .json file and sort it
             let data = try Data(contentsOf: URL(fileURLWithPath: path), options: .alwaysMapped)
             guard let cities = try? JSONDecoder().decode([City].self, from: data) else {
                 return .fail(ErrorType.parsingError)
             }
-            let _asd = cities.sortedCites().prefix(20000).map {
-                return $0
-            }
-//            return .just(cities.sortedCites())
-            return .just(_asd)
+            return .just(cities.sortedCites())
         } catch {
             return .fail(ErrorType.parsingError)
         }
@@ -32,17 +29,15 @@ class FileService: FileServiceType {
     
     @discardableResult
     func search(from cities: [City], name: String) -> AnyPublisher<[City], Error> {
-        let cities = cities.filter {
-//            if let _ = $0.city.range(of: name) {
-//                return true
-//            }
-//            return false
-            $0.city.hasPrefix(name)
+        let filteredCities = cities.filter {
+            //Return all cities with prefix of ""
+            if name.isEmpty {
+                return ($0.city.lowercased().hasPrefix(name.lowercased()))
+            } else {
+                //Return all cities matching range and hasPrefix
+                return ($0.city.range(of: name, options: [.caseInsensitive]) != nil) && ($0.city.lowercased().hasPrefix(name.lowercased()))
+            }
         }
-        let _asd = cities.sortedCites().prefix(20000).map {
-            return $0
-        }
-//        return .just(cities.sortedCites())
-        return .just(_asd)
+        return .just(filteredCities)
     }
 }

@@ -53,7 +53,7 @@ final class CitiesSearchViewModel: CitiesSearchViewModelType {
         
         ///Load filtered cities
         let filteredCities = input
-            .search.filter { _ in true }
+            .search.filter { _ in true } //passing empty string to searchCities
             .flatMapLatest { text in
                 self.useCase.searchCities(from: self.cities, with: text)
         }

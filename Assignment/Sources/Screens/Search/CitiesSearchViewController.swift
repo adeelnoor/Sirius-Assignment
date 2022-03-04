@@ -20,7 +20,6 @@ class CitiesSearchViewController: UIViewController {
     private let viewModel: CitiesSearchViewModelType
     private let didSelect = PassthroughSubject<CityViewModel, Never>()
     private let didSearch = PassthroughSubject<String, Never>()
-    private let cities = PassthroughSubject<[City], Never>()
     private var cellId = "cellId"
     private lazy var searchController: UISearchController = {
         let searchController = UISearchController(searchResultsController: nil)
@@ -33,9 +32,10 @@ class CitiesSearchViewController: UIViewController {
         searchController.searchBar.searchTextField.placeholder = "Search here..."
         return searchController
     }()
-    private lazy var dataSource = setupDataSource()
-    fileprivate var snapshot = NSDiffableDataSourceSnapshot<Section, CityViewModel>()
-    
+        
+//    private lazy var dataSource = setupDataSource()
+//    fileprivate var snapshot = NSDiffableDataSourceSnapshot<Section, CityViewModel>()
+    private var cityViewModels = [CityViewModel]()
     init(viewModel: CitiesSearchViewModelType) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
@@ -46,18 +46,16 @@ class CitiesSearchViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.delegate = self
+        tableView.dataSource = self
         setupUI()
         bindViewModel(viewModel)
-    }
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
     }
     //MARK: - Setup View
     private func setupUI() {
         definesPresentationContext = true
         title = "Cities"
         //Setup tableView datasource
-        tableView.dataSource = dataSource
+//        tableView.dataSource = dataSource
         navigationController?.navigationBar.isTranslucent = true
         tableView.tableHeaderView = searchController.searchBar
     }
@@ -81,6 +79,7 @@ class CitiesSearchViewController: UIViewController {
             case .loading:
                 loadingView.isHidden = false
             case .success(let cities):
+                cityViewModels = cities
                 update(with: cities)
             case .error(let error):
                 alert(title: "Error", message: error.localizedDescription)
@@ -107,40 +106,63 @@ fileprivate extension CitiesSearchViewController {
     enum Section: CaseIterable {
         case cities
     }
-    func setupDataSource() -> UITableViewDiffableDataSource<Section, CityViewModel> {
-        return UITableViewDiffableDataSource(tableView: tableView) { tableView, indexPath, cityViewModel in
-            var cell: UITableViewCell! = tableView.dequeueReusableCell(withIdentifier: self.cellId)
-            if cell == nil {
-                cell = UITableViewCell(style: .subtitle, reuseIdentifier: self.cellId)
-                cell.textLabel?.textAlignment = .left
-                cell.textLabel?.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
-                cell.textLabel?.textColor = .black
-                cell.selectionStyle = .default
-                cell.backgroundColor = .white
-            }
-            cell.bind(to: cityViewModel)
-            return cell
-        }
-    }
+//    func setupDataSource() -> UITableViewDiffableDataSource<Section, CityViewModel> {
+//        return UITableViewDiffableDataSource(tableView: tableView) { tableView, indexPath, cityViewModel in
+//            var cell: UITableViewCell! = tableView.dequeueReusableCell(withIdentifier: self.cellId)
+//            if cell == nil {
+//                cell = UITableViewCell(style: .subtitle, reuseIdentifier: self.cellId)
+//                cell.textLabel?.textAlignment = .left
+//                cell.textLabel?.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
+//                cell.textLabel?.textColor = .black
+//                cell.selectionStyle = .default
+//                cell.backgroundColor = .white
+//            }
+//            cell.bind(to: cityViewModel)
+//            return cell
+//        }
+//    }
     func update(with cities: [CityViewModel]) {
-        snapshot = NSDiffableDataSourceSnapshot<Section, CityViewModel>()
-        snapshot.deleteAllItems()
+        
+//        snapshot = NSDiffableDataSourceSnapshot<Section, CityViewModel>()
+//        snapshot.deleteAllItems()
         
         DispatchQueue.main.async {
             
-            self.snapshot.appendSections(Section.allCases)
-            self.snapshot.appendItems(cities, toSection: .cities)
+//            self.snapshot.appendSections(Section.allCases)
+//            self.snapshot.appendItems(cities, toSection: .cities)
+//            self.dataSource.apply(self.snapshot, animatingDifferences: true, completion: nil)
             
-            self.dataSource.apply(self.snapshot, animatingDifferences: true, completion: nil)
+            self.tableView.reloadData()
         }
     }
 }
 //MARK: - UItableView Delegates
-extension CitiesSearchViewController: UITableViewDelegate {
+extension CitiesSearchViewController: UITableViewDelegate, UITableViewDataSource {
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return cityViewModels.count
+    }
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        var cell: UITableViewCell! = tableView.dequeueReusableCell(withIdentifier: self.cellId)
+        if cell == nil {
+            cell = UITableViewCell(style: .subtitle, reuseIdentifier: self.cellId)
+            cell.textLabel?.textAlignment = .left
+            cell.textLabel?.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
+            cell.textLabel?.textColor = .black
+            cell.selectionStyle = .default
+            cell.backgroundColor = .white
+        }
+        cell.bind(to: cityViewModels[indexPath.row])
+        return cell
+    }
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         searchController.searchBar.resignFirstResponder()
-        let snapshot = dataSource.snapshot()
-        didSelect.send(snapshot.itemIdentifiers[indexPath.row])
+//        let snapshot = dataSource.snapshot()
+        let viewModel = cityViewModels[indexPath.row]
+        didSelect.send(viewModel)
         tableView.deselectRow(at: indexPath, animated: true)
     }
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
