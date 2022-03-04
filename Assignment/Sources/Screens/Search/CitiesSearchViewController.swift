@@ -34,6 +34,7 @@ class CitiesSearchViewController: UIViewController {
         return searchController
     }()
     private lazy var dataSource = setupDataSource()
+    fileprivate var snapshot = NSDiffableDataSourceSnapshot<Section, CityViewModel>()
     
     init(viewModel: CitiesSearchViewModelType) {
         self.viewModel = viewModel
@@ -53,6 +54,7 @@ class CitiesSearchViewController: UIViewController {
     }
     //MARK: - Setup View
     private func setupUI() {
+        definesPresentationContext = true
         title = "Cities"
         //Setup tableView datasource
         tableView.dataSource = dataSource
@@ -67,10 +69,11 @@ class CitiesSearchViewController: UIViewController {
                                                select: didSelect.eraseToAnyPublisher())
         let output = viewModel.transform(input: input)
         
-        output.sink { [weak self] state in
-            self?.updateState(state)
-        }
-        .store(in: &cancellables)
+        output
+            .sink { [weak self] state in
+                self?.updateState(state)
+            }
+            .store(in: &cancellables)
     }
     private func updateState(_ state: CitiesSearchState) {
         loadingView.isHidden = true
@@ -120,19 +123,22 @@ fileprivate extension CitiesSearchViewController {
         }
     }
     func update(with cities: [CityViewModel]) {
-        DispatchQueue.global(qos: .default).async { [unowned self] in
-            var snapshot = NSDiffableDataSourceSnapshot<Section, CityViewModel>()
-            snapshot.appendSections(Section.allCases)
-            snapshot.appendItems(cities, toSection: .cities)
-            DispatchQueue.main.async {
-                self.dataSource.apply(snapshot, animatingDifferences: true)
-            }
+        snapshot = NSDiffableDataSourceSnapshot<Section, CityViewModel>()
+        snapshot.deleteAllItems()
+        
+        DispatchQueue.main.async {
+            
+            self.snapshot.appendSections(Section.allCases)
+            self.snapshot.appendItems(cities, toSection: .cities)
+            
+            self.dataSource.apply(self.snapshot, animatingDifferences: true, completion: nil)
         }
     }
 }
 //MARK: - UItableView Delegates
 extension CitiesSearchViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        searchController.searchBar.resignFirstResponder()
         let snapshot = dataSource.snapshot()
         didSelect.send(snapshot.itemIdentifiers[indexPath.row])
         tableView.deselectRow(at: indexPath, animated: true)

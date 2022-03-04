@@ -20,7 +20,11 @@ class FileService: FileServiceType {
             guard let cities = try? JSONDecoder().decode([City].self, from: data) else {
                 return .fail(ErrorType.parsingError)
             }
-            return .just(cities.sortedCites())
+            let _asd = cities.sortedCites().prefix(20000).map {
+                return $0
+            }
+//            return .just(cities.sortedCites())
+            return .just(_asd)
         } catch {
             return .fail(ErrorType.parsingError)
         }
@@ -35,9 +39,10 @@ class FileService: FileServiceType {
 //            return false
             $0.city.hasPrefix(name)
         }
-//        let _asd = cities.sortedCites().prefix(20).map {
-//            return $0
-//        }
-        return .just(cities.sortedCites())
+        let _asd = cities.sortedCites().prefix(20000).map {
+            return $0
+        }
+//        return .just(cities.sortedCites())
+        return .just(_asd)
     }
 }

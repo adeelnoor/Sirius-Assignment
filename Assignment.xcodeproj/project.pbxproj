@@ -7,11 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		097D1F6C27D248A3008FE11C /* ApplicationFlowCoordinatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 097D1F6B27D248A3008FE11C /* ApplicationFlowCoordinatorTests.swift */; };
+		097D1F6F27D24921008FE11C /* AutoMockable.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 097D1F6E27D24921008FE11C /* AutoMockable.generated.swift */; };
+		097D1F7127D24A93008FE11C /* CitiesSearchViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 097D1F7027D24A93008FE11C /* CitiesSearchViewModelTests.swift */; };
+		097D1F7327D24FE4008FE11C /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 097D1F7227D24FE4008FE11C /* Utils.swift */; };
+		097D1F7527D25E1B008FE11C /* GeneralTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 097D1F7427D25E1B008FE11C /* GeneralTests.swift */; };
 		098AE4B027CD566A00C991A2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 098AE4AF27CD566A00C991A2 /* AppDelegate.swift */; };
 		098AE4B727CD566A00C991A2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 098AE4B527CD566A00C991A2 /* Main.storyboard */; };
 		098AE4B927CD566D00C991A2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 098AE4B827CD566D00C991A2 /* Assets.xcassets */; };
 		098AE4BC27CD566D00C991A2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 098AE4BA27CD566D00C991A2 /* LaunchScreen.storyboard */; };
-		098AE4C727CD566E00C991A2 /* AssignmentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 098AE4C627CD566E00C991A2 /* AssignmentTests.swift */; };
 		098AE4D127CD566E00C991A2 /* AssignmentUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 098AE4D027CD566E00C991A2 /* AssignmentUITests.swift */; };
 		098AE4D327CD566E00C991A2 /* AssignmentUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 098AE4D227CD566E00C991A2 /* AssignmentUITestsLaunchTests.swift */; };
 		098AE4E227CD6ECB00C991A2 /* cities.json in Resources */ = {isa = PBXBuildFile; fileRef = 098AE4E127CD6ECB00C991A2 /* cities.json */; };
@@ -59,6 +63,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		097D1F6B27D248A3008FE11C /* ApplicationFlowCoordinatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationFlowCoordinatorTests.swift; sourceTree = "<group>"; };
+		097D1F6E27D24921008FE11C /* AutoMockable.generated.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoMockable.generated.swift; sourceTree = "<group>"; };
+		097D1F7027D24A93008FE11C /* CitiesSearchViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CitiesSearchViewModelTests.swift; sourceTree = "<group>"; };
+		097D1F7227D24FE4008FE11C /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
+		097D1F7427D25E1B008FE11C /* GeneralTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralTests.swift; sourceTree = "<group>"; };
 		098AE4AC27CD566A00C991A2 /* Assignment.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Assignment.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		098AE4AF27CD566A00C991A2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		098AE4B627CD566A00C991A2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -66,7 +75,6 @@
 		098AE4BB27CD566D00C991A2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		098AE4BD27CD566D00C991A2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		098AE4C227CD566E00C991A2 /* AssignmentTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AssignmentTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		098AE4C627CD566E00C991A2 /* AssignmentTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssignmentTests.swift; sourceTree = "<group>"; };
 		098AE4CC27CD566E00C991A2 /* AssignmentUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AssignmentUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		098AE4D027CD566E00C991A2 /* AssignmentUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssignmentUITests.swift; sourceTree = "<group>"; };
 		098AE4D227CD566E00C991A2 /* AssignmentUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssignmentUITestsLaunchTests.swift; sourceTree = "<group>"; };
@@ -122,6 +130,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		097D1F6D27D24910008FE11C /* Mocks */ = {
+			isa = PBXGroup;
+			children = (
+				097D1F6E27D24921008FE11C /* AutoMockable.generated.swift */,
+			);
+			path = Mocks;
+			sourceTree = "<group>";
+		};
 		098AE4A327CD566A00C991A2 = {
 			isa = PBXGroup;
 			children = (
@@ -156,7 +172,11 @@
 		098AE4C527CD566E00C991A2 /* AssignmentTests */ = {
 			isa = PBXGroup;
 			children = (
-				098AE4C627CD566E00C991A2 /* AssignmentTests.swift */,
+				097D1F6D27D24910008FE11C /* Mocks */,
+				097D1F6B27D248A3008FE11C /* ApplicationFlowCoordinatorTests.swift */,
+				097D1F7027D24A93008FE11C /* CitiesSearchViewModelTests.swift */,
+				097D1F7227D24FE4008FE11C /* Utils.swift */,
+				097D1F7427D25E1B008FE11C /* GeneralTests.swift */,
 			);
 			path = AssignmentTests;
 			sourceTree = "<group>";
@@ -448,7 +468,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				098AE4C727CD566E00C991A2 /* AssignmentTests.swift in Sources */,
+				097D1F7327D24FE4008FE11C /* Utils.swift in Sources */,
+				097D1F6F27D24921008FE11C /* AutoMockable.generated.swift in Sources */,
+				097D1F7127D24A93008FE11C /* CitiesSearchViewModelTests.swift in Sources */,
+				097D1F6C27D248A3008FE11C /* ApplicationFlowCoordinatorTests.swift in Sources */,
+				097D1F7527D25E1B008FE11C /* GeneralTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
